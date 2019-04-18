@@ -1,0 +1,32 @@
+{
+    "name": "shudd3r/kata",
+    "description": "Test repo",
+    "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.1",
+        "phpunit/phpunit": "7.0",
+        "php-coveralls/php-coveralls": "^2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shudd3r",
+            "email": "q3.shudder@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Shudd3r\\Kata\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Shudd3r\\Kata\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "style-check": "polymorphine-cs"
+    }
+}
