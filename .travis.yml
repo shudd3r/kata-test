@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - '7.1'
+
+before_install:
+  - composer self-update
+
+before_script:
+  - composer update
+
+script:
+  - mkdir -p build/logs
+  - phpunit
+
+after_success:
+  - php vendor/bin/php-coveralls
