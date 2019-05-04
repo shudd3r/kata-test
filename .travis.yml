@@ -7,11 +7,15 @@ before_install:
   - composer self-update
 
 before_script:
+  - git checkout HEAD^1
+  - git fetch origin +refs/pull/$TRAVIS_PULL_REQUEST/head
+  - git checkout -qf FETCH_HEAD
   - composer update
+  - mkdir -p build/logs
 
 script:
-  - mkdir -p build/logs
-  - phpunit
-
-after_success:
-  - php vendor/bin/php-coveralls
+  - phpunit --disable-coverage-ignore
+  - php check-coverage Feature
+  - git checkout HEAD^1
+  - phpunit --disable-coverage-ignore --exclude-group new
+  - php check-coverage Refactoring
