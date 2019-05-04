@@ -5,8 +5,8 @@ namespace Shudd3r\Kata;
 
 class Message
 {
-    public function render(string $name = null): string
+    public function render(string $name): string
     {
-        return 'Hello ' . ($name ?? 'World!');
+        return 'Hello ' . $name;
     }
 }

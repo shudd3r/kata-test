@@ -8,15 +8,9 @@ use Shudd3r\Kata\MessageFactory;
 
 class MessageTest extends TestCase
 {
-    public function testRunWithDefaultValue()
+    public function testRenderText()
     {
         $factory = new MessageFactory();
-        $this->assertSame('Hello World!', $factory->createText()->render());
-    }
-
-    public function testRunWithConcreteValue()
-    {
-        $factory = new MessageFactory();
-        $this->assertSame('Hello Name', $factory->createText()->render('Name'));
+        $this->assertSame('Hello World!', $factory->createText()->render('World!'));
     }
 }
