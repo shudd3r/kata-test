@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+unset($argv[0]);
+if (!$argv) {
+    echo 'Validation skipped' . PHP_EOL;
+    exit;
+}
+
+function check_coverage(string $stage): int {
+    echo $stage . ' stage tests should cover 100% lines';
+    $report = file_get_contents('build/logs/coverage.txt');
+
+    return strpos($report, 'Lines:   100.00%') ? success() : fail();
+}
+
+function verify_changes(string $stage, array $files): int {
+    return ($stage === 'Feature')
+        ? check_files($files, 'src/Factory/', 'Only factory files can be modified in Feature stage')
+        : check_files($files, 'src/', 'Changes outside src directory are not allowed');
+}
+
+function check_files(array $files, string $allowed, string $message): int {
+    echo $message;
+    foreach ($files as $file) {
+        if (strpos($file, $allowed) === 0) { continue; }
+        return fail();
+    }
+    return success();
+}
+
+function fail(): int {
+    echo ' - FAILED' . PHP_EOL;
+    return 1;
+}
+
+function success(): int {
+    echo ' - OK' . PHP_EOL;
+    return 0;
+}
+
+$stage  = array_unshift($argv);
+$errors = check_coverage($stage) + verify_changes($stage, $argv);
+
+exit($errors);
