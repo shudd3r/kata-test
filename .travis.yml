@@ -4,18 +4,23 @@ php:
   - '7.1'
 
 before_install:
-  - composer self-update
+  - |
+    git checkout -q HEAD^1
+    git tag -f base
+    git fetch -q origin +refs/pull/$TRAVIS_PULL_REQUEST/head
+    git checkout -qf FETCH_HEAD
+    git tag -f feature
+    git tag -f refactor HEAD^1
+
+install:
+  - composer update
 
 before_script:
-  - git checkout HEAD^1
-  - git fetch origin +refs/pull/$TRAVIS_PULL_REQUEST/head
-  - git checkout -qf FETCH_HEAD
-  - composer update
   - mkdir -p build/logs
 
 script:
   - phpunit --disable-coverage-ignore
   - php check-coverage Feature
-  - git checkout HEAD^1
+  - git checkout refactor
   - phpunit --disable-coverage-ignore --exclude-group new
   - php check-coverage Refactoring
