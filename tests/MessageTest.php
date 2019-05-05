@@ -3,7 +3,7 @@
 namespace Shudd3r\Kata\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Shudd3r\Kata\MessageFactory;
+use Shudd3r\Kata\Factory\MessageFactory;
 
 
 class MessageTest extends TestCase
