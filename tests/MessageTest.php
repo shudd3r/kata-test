@@ -13,4 +13,11 @@ class MessageTest extends TestCase
         $factory = new MessageFactory();
         $this->assertSame('Hello World!', $factory->createText()->render('World!'));
     }
+
+    /** @group new */
+    public function testRenderHtml()
+    {
+        $factory = new MessageFactory();
+        $this->assertSame('<p>Hello <strong>Name</strong></p>', $factory->createHtml()->render('Name'));
+    }
 }
