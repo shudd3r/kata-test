@@ -1,6 +1,8 @@
 <?php
 
-namespace Shudd3r\Kata;
+namespace Shudd3r\Kata\Factory;
+
+use Shudd3r\Kata\Message;
 
 
 class MessageFactory
