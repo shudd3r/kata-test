@@ -17,10 +17,20 @@ install:
 
 before_script:
   - mkdir -p build/logs
+  - |
+    validate_feature() {
+      MODIFIED_FILES=$(git diff --name-only --diff-filter=MRTXB refactor..feature)
+      php validate Feature $MODIFIED_FILES
+    }
+  - |
+    validate_refactoring() {
+      MODIFIED_FILES=$(git diff --name-only --diff-filter=ACDMRTUXB base..feature)
+      php validate Refactoring $MODIFIED_FILES
+    }
 
 script:
   - phpunit --disable-coverage-ignore
-  - php check-coverage Feature
+  - validate_feature
   - git checkout refactor
   - phpunit --disable-coverage-ignore --exclude-group new
-  - php check-coverage Refactoring
+  - validate_refactoring
