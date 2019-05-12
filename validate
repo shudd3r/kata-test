@@ -39,7 +39,7 @@ function success(): int {
     return 0;
 }
 
-$stage  = array_unshift($argv);
+$stage  = array_shift($argv);
 $errors = check_coverage($stage) + verify_changes($stage, $argv);
 
 exit($errors);
